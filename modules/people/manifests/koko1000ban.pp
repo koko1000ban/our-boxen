@@ -120,6 +120,7 @@ class people::koko1000ban {
     # git-cloneする。そのとき~/srcディレクトリがなければいけない。
     repository { $dotfiles:
       source  => "koko1000ban/dotfiles",
+      extra   => "--recursive",
       require => File[$src]
     }
     # git-cloneしたらインストールする
