@@ -56,6 +56,7 @@ class people::koko1000ban {
         'nkf',
         'openssl',
         'parallel',
+        'fswatch',
         'pcre',
         'percona-toolkit',
         'pkg-config',
