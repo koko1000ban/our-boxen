@@ -103,14 +103,20 @@ class people::koko1000ban {
         source => "http://dl.google.com/japanese-ime/latest/GoogleJapaneseInput.dmg",
         provider => pkgdmg;
       'Kobito':
-          source   => "http://kobito.qiita.com/download/Kobito_v1.2.0.zip",
-          provider => compressed_app;
+        source   => "http://kobito.qiita.com/download/Kobito_v1.2.0.zip",
+        provider => compressed_app;
       'XtraFinder':
-          source   => "http://www.trankynam.com/xtrafinder/downloads/XtraFinder.dmg",
-          provider => pkgdmg;
+        source   => "http://www.trankynam.com/xtrafinder/downloads/XtraFinder.dmg",
+        provider => pkgdmg;
       'Shiftit':
         source => "https://github.com/downloads/fikovnik/ShiftIt/ShiftIt-1.5.zip",
         provider => compressed_app;
+      'nvALT':
+        source => "http://abyss.designheresy.com/nvaltb/nvalt2.2b106.zip",
+        provider => compressed_app;
+      'MySQLWorkbench':
+        source => "http://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-6.0.7.1-osx-i686.dmg/from/http://cdn.mysql.com/",
+        provider => pkgdmg;
     }
 
     $home     = "/Users/${::luser}"
