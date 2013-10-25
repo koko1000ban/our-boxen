@@ -23,6 +23,7 @@ class people::koko1000ban {
   include istatmenus3
   include osx
   include osxfuse
+  include ruby
 
   package {
       [
@@ -165,5 +166,21 @@ class people::koko1000ban {
     vagrant::plugin { 'aws' }
     vagrant::plugin { 'vbox-snapshot' }
 
+    ruby::plugin { 'rbenv-vars':
+      ensure => 'v1.2.0',
+      source  => 'sstephenson/rbenv-vars'
+    }
+
+    $version = "2.0.0"
+    ruby::gem{ "bundler for ${version}":
+      gem => 'bundler',
+      ruby => $version,
+      version => '~> 1.2.0'
+    }
+
+    ruby::gem{ "powder for ${version}":
+      gem => 'powder',
+      ruby => $version
+    }
 
 }
