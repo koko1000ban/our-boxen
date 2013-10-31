@@ -9,7 +9,7 @@ class people::koko1000ban {
   include evernote
   include mou
   include sublime_text_2
-  include charles
+  #include charles
   include appcleaner
   include vagrant
   include virtualbox
@@ -21,14 +21,13 @@ class people::koko1000ban {
   include dropbox
   include pow
   include istatmenus3
-  include osx
-  include osxfuse
+
+  #include osxfuse <- OSXFUSE is not compatible 10.9 now..
   include ruby
 
   package {
       [
         'tmux',
-        'ack',
         'autoconf',
         'automake',
         'cmake',
@@ -39,7 +38,6 @@ class people::koko1000ban {
         'gettext',
         'git',
         'global',
-        'gnu-tar',
         'gnutls',
         'go',
         'htop-osx',
@@ -55,31 +53,48 @@ class people::koko1000ban {
         'moreutils',
         'ngrep',
         'nkf',
-        'openssl',
-        'parallel',
         'fswatch',
         'pcre',
-        'percona-toolkit',
+        'proctools',
+        #'percona-toolkit',
         'pkg-config',
         'readline',
         'reattach-to-user-namespace',
         'redis',
-        'rsync',
         's3sync',
         'sqlite',
         'sshfs',
-        'tcpflow',
+        # 'tcpflow', install error...
         'the_silver_searcher',
         'tree',
         'varnish',
         'watch',
         'wget',
         'wireshark',
+        'wrk',
         'xz',
         'z',
-        'zlib'
       ]:
     }
+
+    # Dock
+    #include osx::dock::autohide
+    #class osx::dock::kill_dashbord{
+    # include osx::dock
+    #  boxen::osx_defaults { 'kill dashbord':
+    #    user   => $::boxen_user,
+    #    domain => 'com.apple.dashboard',
+    #    key    => 'mcx-disabled',
+    #   value  => YES,
+    #    notify => Exec['killall Dock'];
+    #  }
+    #}
+    #include osx::dock::kill_dashbord
+
+    # Miscellaneous
+    #include osx::no_network_dsstores # disable creation of .DS_Store files on network shares
+    #include osx::software_update # download and install software updates
+    #include osx::global::enable_keyboard_control_access
 
     package {
       'zsh':
@@ -116,8 +131,8 @@ class people::koko1000ban {
         source => "http://abyss.designheresy.com/nvaltb/nvalt2.2b106.zip",
         provider => compressed_app;
       'MySQLWorkbench':
-        source => "http://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-6.0.7.1-osx-i686.dmg/from/http://cdn.mysql.com/",
-        provider => pkgdmg;
+        source => 'http://cdn.mysql.com/Downloads/MySQLGUITools/mysql-workbench-gpl-5.2.47-osx-i686.dmg',
+        provider => appdmg;
     }
 
     $home     = "/Users/${::luser}"
@@ -128,11 +143,11 @@ class people::koko1000ban {
     # git-cloneする。そのとき~/srcディレクトリがなければいけない。
     repository { $dotfiles:
       source  => "koko1000ban/dotfiles",
-      extra   => "--recursive",
+      extra   => "--recurse-submodules",
       require => File[$src]
     }
     # git-cloneしたらインストールする
-    exec { "sh ${dotfiles}/setup.sh":
+    exec { "ruby ${dotfiles}/setup.rb":
       cwd => $dotfiles,
       creates => "${home}/.zshrc",
       require => Repository[$dotfiles],
@@ -140,7 +155,7 @@ class people::koko1000ban {
 
     $sublimetext2_packages = "${src}/sublimetext2-packages"
     repository { $sublimetext2_packages:
-      source  => "koko1000ban/sublimetext2_packages",
+      source  => "koko1000ban/sublimetext2-packages",
       require => File[$src]
     }
 
@@ -163,15 +178,18 @@ class people::koko1000ban {
         value  => '50';
     }
 
-    vagrant::plugin { 'aws' }
-    vagrant::plugin { 'vbox-snapshot' }
-
-    ruby::plugin { 'rbenv-vars':
-      ensure => 'v1.2.0',
-      source  => 'sstephenson/rbenv-vars'
+    vagrant::plugin { 'aws':
+      license => undef;
+    }
+    vagrant::plugin { 'vbox-snapshot':
+      license => undef;
     }
 
     $version = "2.0.0"
+    class { 'ruby::global':
+      version => $version
+    }
+
     ruby::gem{ "bundler for ${version}":
       gem => 'bundler',
       ruby => $version,

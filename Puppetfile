@@ -39,7 +39,7 @@ github "homebrew", "1.4.1"
 # Optional/custom modules. There are tons available at
 # https://github.com/boxen.
 
-github "osx",     "1.0.0"
+github "osx",     "1.6.0"
 github "osxfuse", "1.1.0"
 
 github "istatmenus3", "1.0.1"
