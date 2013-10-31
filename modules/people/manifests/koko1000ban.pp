@@ -201,4 +201,19 @@ class people::koko1000ban {
       ruby => $version
     }
 
+    $percol = "$src/percol"
+
+    repository { $percol:
+      source  => "mooz/percol",
+      require => File[$src],
+      notify => Exec['install-percol'],
+    }
+
+    exec { "install-percol" :
+      cwd => $percol,
+      user => root,
+      command => 'python setup.py install',
+      require => Repository[$percol],
+    }
+
 }
