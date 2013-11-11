@@ -13,7 +13,7 @@ end
 # Includes many of our custom types and providers, as well as global
 # config. Required.
 
-github "boxen",      "3.0.2"
+github "boxen",      "3.3.4"
 
 # Core modules for a basic development environment. You can replace
 # some/most of these if you want, but it's not recommended.
@@ -46,7 +46,11 @@ github "slate", "1.0.0"
 github "adium", "1.2.0"
 github "istatmenus3", "1.0.1"
 github "chrome",   "1.1.0"
+
 github "mysql", "2.0.1", :repo => "koko1000ban/puppet-mysql"
+github "memcached", "1.3.1", :repo => "koko1000ban/puppet-memcached"
+github "redis", "1.1.1", :repo => "koko1000ban/puppet-redis"
+
 github "sourcetree", "1.0.0"
 github "rubymine", "1.0.3"
 github "evernote", "2.0.4"
