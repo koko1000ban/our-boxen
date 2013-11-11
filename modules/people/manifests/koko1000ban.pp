@@ -21,6 +21,7 @@ class people::koko1000ban {
   include dropbox
   include pow
   include istatmenus3
+  include slate
 
   #include osxfuse <- OSXFUSE is not compatible 10.9 now..
   include ruby

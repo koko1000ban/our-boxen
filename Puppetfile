@@ -42,6 +42,8 @@ github "homebrew", "1.4.1"
 github "osx",     "1.6.0"
 github "osxfuse", "1.1.0"
 
+github "slate", "1.0.0"
+github "adium", "1.2.0"
 github "istatmenus3", "1.0.1"
 github "chrome",   "1.1.0"
 github "mysql", "1.1.5"
