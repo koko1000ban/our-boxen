@@ -24,6 +24,9 @@ class people::koko1000ban {
   include slate
   include memcached
   include redis
+  include mongodb
+  include postgresql
+  include imagemagick
 
   #include osxfuse <- OSXFUSE is not compatible 10.9 now..
   include ruby
@@ -106,6 +109,16 @@ class people::koko1000ban {
         ]
     }
 
+    package {
+      'nginx':
+        install_options => [
+          '--with-realip',
+          '--with-http_ssl_module',
+          '--with-pcre',
+          '--with-stub_status'
+        ]
+    }
+
     file_line { 'add zsh to /etc/shells':
       path    => '/etc/shells',
       line    => "${boxen::config::homebrewdir}/bin/zsh",
@@ -185,6 +198,9 @@ class people::koko1000ban {
       license => undef;
     }
     vagrant::plugin { 'vbox-snapshot':
+      license => undef;
+    }
+    vagrant::plugin { 'omnibus':
       license => undef;
     }
 
